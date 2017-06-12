@@ -5,14 +5,16 @@
  */
 
 import React, { Component } from 'react';
-import {
-} from 'react-native';
+import { Provider } from 'react-redux';
+import Store from './Store';
 import Navigation from './routes/Navigation';
 
 export default class App extends Component {
   render() {
     return (
-      <Navigation />
+			<Provider store={Store()}>
+	      <Navigation />
+			</Provider>
     );
   }
 }

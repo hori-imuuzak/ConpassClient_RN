@@ -4,7 +4,7 @@ import {
 	View,
 } from 'react-native';
 
-export default class MainScreen extends Component {
+export default class SearchEventScreen extends Component {
 	render() {
 		return (
 			<View>

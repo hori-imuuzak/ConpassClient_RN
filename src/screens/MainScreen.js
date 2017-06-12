@@ -5,7 +5,7 @@ import {
 } from 'react-navigation';
 import * as R from '../consts/R';
 
-import NewEventScreen from './NewEventScreen';
+import NewEventScreen from '../containers/NewEventScreenContainer';
 import SearchEventScreen from './SearchEventScreen';
 
 export default TabNavigator({
