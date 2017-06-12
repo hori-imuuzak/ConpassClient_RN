@@ -50,7 +50,14 @@ export default class NewEventScreen extends Component {
 			<View style={{ flex: 1 }}>
 				<FlatList
 					data={this.state.events}
-					renderItem={this.renderRow} />
+					renderItem={this.renderRow}
+					onViewableItemsChanged={(info) => {
+						// これで一番下にいるindexは取れるので、更新中のstateを持てば更新できそう
+						//   アクションを常に飛ばして、アクション側でstateを変えるかどうか判別する?
+						//	 or Componentのレベルでアクションを飛ばすかどうかにする？
+						const len = info.changed.length;
+						console.log(info.changed[len - 1].index);
+						}} />
 			</View>
 		);
 	}
