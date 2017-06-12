@@ -16,12 +16,14 @@ export default class EventItem extends Component {
 	constructor(props) {
 		super(props);
 
+		console.log(this.props);
+
 		this.displayDatetime = this.displayDatetime.bind(this);
 		this.displayText = this.displayText.bind(this);
 	}
 
 	displayText(text) {
-		if (text === '') {
+		if (!text) {
 			return '未設定';
 		}
 
@@ -49,7 +51,7 @@ export default class EventItem extends Component {
 			accepted,
 			limit,
 			place,
-			started_at
+			started_at,
 		} = this.props.event;
 		let catchText = this.props.event.catch;
 
@@ -60,7 +62,8 @@ export default class EventItem extends Component {
 
 		return (
 			<TouchableOpacity
-				style={styles.container}>
+				style={styles.container}
+				onPress={this.props.onPress}>
 				<IconText
 					style={{fontSize: 16}}
 					iconSrc={R.ICON_EVENT_TITLE}

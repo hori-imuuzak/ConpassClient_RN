@@ -37,7 +37,10 @@ export default class NewEventScreen extends Component {
 		return (
 			<View key={key} style={itemStyle}>
 				<EventItem
-					event={event.item} />
+					event={event.item}
+					onPress={() => {
+						this.props.openEvent(this.props.navigation, event.item)
+					}} />
 			</View>
 		)
 	}

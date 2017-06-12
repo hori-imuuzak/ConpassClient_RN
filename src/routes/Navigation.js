@@ -4,6 +4,7 @@ import {
 
 import Splash from '../screens/Splash';
 import MainScreen from '../screens/MainScreen';
+import EventScreen from '../screens/EventScreen';
 
 export const Route = {
 	SPLASH: 'Splash',
@@ -23,4 +24,10 @@ export default StackNavigator({
 			title: 'conpass IT勉強会'
 		}
 	},
+	EventScreen: {
+		screen: EventScreen,
+		navigationOptions: {
+			title: 'イベント詳細'
+		}
+	}
 })
