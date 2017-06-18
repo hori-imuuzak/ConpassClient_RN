@@ -3,12 +3,22 @@ import {
 	Text,
 	View,
 	FlatList,
+	ActivityIndicator,
 } from 'react-native';
 
 import EventItem from '../components/EventItem';
 
-const itemStyle = {
-	height: 144,
+const styles = {
+	itemStyle: {
+		height: 144,
+	},
+	indicator: {
+		flex: 1,
+		alignSelf: 'center',
+	},
+	backgroundWhite: {
+		backgroundColor: 'white',
+	},
 }
 
 export default class NewEventScreen extends Component {
@@ -16,26 +26,37 @@ export default class NewEventScreen extends Component {
 		super(props);
 
 		this.state = {
-			events: props.newEvents,
+			events: props.events,
+			isLoading: props.isLoading,
+			page: props.nextPage,
 		}
 
+		this.renderEvent = this.renderEvent.bind(this);
+		this.renderIndicator = this.renderIndicator.bind(this);
 		this.renderRow = this.renderRow.bind(this);
 	}
 
 	componentWillMount() {
-		this.props.loadNewEvents();
+		this.props.loadNewEvents(this.state.page);
 	}
 
 	componentWillReceiveProps(nextProps) {
+		const {
+			events,
+			isLoading,
+			nextPage,
+		} = nextProps;
+
 		this.setState({
-			events: nextProps.newEvents,
+			events: events,
+			isLoading: isLoading,
+			nextPage: nextPage,
 		});
 	}
 
-	renderRow(event) {
-		const key = this.state.events.indexOf(event);
+	renderEvent(event) {
 		return (
-			<View key={key} style={itemStyle}>
+			<View style={styles.itemStyle}>
 				<EventItem
 					event={event.item}
 					onPress={() => {
@@ -45,19 +66,48 @@ export default class NewEventScreen extends Component {
 		)
 	}
 
+	renderIndicator() {
+		return (
+			<View style={[styles.itemStyle, styles.backgroundWhite]}>
+				<ActivityIndicator
+					style={styles.indicator}
+					animating
+				/>
+			</View>
+		)
+	}
+
+	renderRow(event) {
+		return this.renderEvent(event);
+	}
+
 	render() {
+		const {
+			events,
+			isLoading,
+			nextPage,
+		} = this.state;
+
+		const {
+			loadNewEvents
+		} = this.props;
+
 		return (
 			<View style={{ flex: 1 }}>
 				<FlatList
-					data={this.state.events}
+					data={events}
 					renderItem={this.renderRow}
+					keyExtractor={(item, index) => index}
 					onViewableItemsChanged={(info) => {
-						// これで一番下にいるindexは取れるので、更新中のstateを持てば更新できそう
+						// これで一番下にいるindexは取れるので、更新中のstateを持てば更新できそう	
 						//   アクションを常に飛ばして、アクション側でstateを変えるかどうか判別する?
 						//	 or Componentのレベルでアクションを飛ばすかどうかにする？
-						const len = info.changed.length;
-						console.log(info.changed[len - 1].index);
-						}} />
+						const tailItemIndex = info.changed[info.changed.length - 1].index;
+						if (!isLoading && tailItemIndex === events.length - 1) {
+							loadNewEvents(nextPage);
+						}
+					}} />
+				{isLoading ? this.renderIndicator() : null}
 			</View>
 		);
 	}

@@ -6,14 +6,17 @@ import {
 import promiseMiddleware from 'redux-promise';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import EventsReducer from './reducers/EventsReducer';
+
+import NewEventsReducer from './reducers/NewEventsReducer';
+import EventDetailReducer from './reducers/EventDetailReducer';
 
 const logger = createLogger();
 
 export default (initialState = {}) => (
 	createStore(
 		combineReducers({
-			events: EventsReducer,
+			newEvents: NewEventsReducer,
+			eventDetail: EventDetailReducer,
 		}),
 		initialState,
 		applyMiddleware(
