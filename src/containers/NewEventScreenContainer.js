@@ -9,8 +9,9 @@ import {
 import NewEventScreen from '../screens/NewEventScreen';
 
 const mapStateToProps = (state) => ({
-    events: state.newEvents.events,
-    isLoading: state.newEvents.isLoading,
+  events: state.newEvents.events,
+  isLoading: state.newEvents.isLoading,
+  nextPage: state.newEvents.nextPage,
 });
 
 const mapDispatchToProps = (dispatch) => (

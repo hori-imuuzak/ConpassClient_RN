@@ -8,6 +8,7 @@ import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 
 import NewEventsReducer from './reducers/NewEventsReducer';
+import SearchEventsReducer from './reducers/SearchEventsReducer';
 import EventDetailReducer from './reducers/EventDetailReducer';
 
 const logger = createLogger();
@@ -15,6 +16,7 @@ const logger = createLogger();
 const store = createStore(
 	combineReducers({
 		newEvents: NewEventsReducer,
+		searchEvents: SearchEventsReducer,
 		eventDetail: EventDetailReducer,
 	}),
 	{},

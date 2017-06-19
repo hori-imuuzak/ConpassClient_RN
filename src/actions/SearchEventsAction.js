@@ -3,13 +3,15 @@ import axios from 'axios';
 import * as API from '../consts/API';
 
 export const ActionTypes = {
-	ACTION_LOADING_EVENTS: "action_loading_events",
-	ACTION_LOADED_EVENTS: "action_loaded_events",
+	ACTION_SEARCHING_EVENTS: "action_searching_events",
+	ACTION_SEARCHED_EVENTS: "action_searched_events",
 }
 
-const fetchNewEvents = (page) => {
+const searchEvents = (page, keywordList) => {
 	return new Promise((resolve, reject) => {
-		const url = API.GET_NEW_EVENTS.replace("0", page);
+		const url = API.SEARCH_EVENTS.replace(
+			"0", page,
+			"1", keywordList.join(','));
 		axios.get(url)
 			.then((response) => {
 				resolve(response);
@@ -20,21 +22,21 @@ const fetchNewEvents = (page) => {
 	})
 }
 
-export const loadNewEvents = (page) => {
+export const searchEvent = (page, keywordList) => {
 	return (dispatch, getState) => {
-		dispatch({ type: ActionTypes.ACTION_LOADING_EVENTS });
+		dispatch({ type: ActionTypes.ACTION_SEARCHING_EVENTS });
 
-		fetchNewEvents(page)
+		searchEvents(page, keywordList)
 			.then((response) => {
 				dispatch({
-					type: ActionTypes.ACTION_LOADED_EVENTS,
+					type: ActionTypes.ACTION_SEARCHED_EVENTS,
 					payload: response.data.events,
 					nextPage: page + 1,
 				})
 			})
 			.catch((error) => {
 				dispatch({
-					type: ActionTypes.ACTION_LOADED_EVENTS,
+					type: ActionTypes.ACTION_SEARCHED_EVENTS,
 					payload: [],
 				})
 			});

@@ -6,7 +6,7 @@ import {
 import * as R from '../consts/R';
 
 import NewEventScreen from '../containers/NewEventScreenContainer';
-import SearchEventScreen from './SearchEventScreen';
+import SearchEventScreen from '../containers/SearchEventScreenContainer';
 
 export default TabNavigator({
 	NewEvent: {

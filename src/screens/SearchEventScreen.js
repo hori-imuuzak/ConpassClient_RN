@@ -13,17 +13,22 @@ import * as R from '../consts/R';
 const styles = {
 	label: {
 		marginVertical: 12,
+		marginLeft: 8,
 	},
 	inputContainer: {
 		flex: 1,
 		flexDirection: 'row',
-		height: 40,
+		maxHeight: 40,
 		justifyContent: 'center',
+		alignItems: 'center',
 	},
 	inputText: {
 		flex: 9,
 		height: 32,
 		borderColor: 'gray',
+		alignSelf: 'center',
+		marginLeft: 8,
+		backgroundColor: 'white',
 		borderWidth: StyleSheet.hairlineWidth,
 	},
 	searchButtonContainer: {
@@ -39,6 +44,32 @@ const styles = {
 }
 
 export default class SearchEventScreen extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			events: props.events,
+			isLoading: props.isLoading,
+			page: props.nextPage,
+			keyword: '',
+		};
+	}
+
+	handleInputKeyword(input) {
+		this.setState({
+			keyword: input,
+		});
+	}
+
+	search() {
+		const {
+			keyword,
+			page,
+		} = this.state;
+
+		this.props.searchEvent(page, keyword.replace('　', ' ').split(' '))
+	}
+
 	render() {
 		return (
 			<View style={{
@@ -51,10 +82,11 @@ export default class SearchEventScreen extends Component {
 					<TextInput
 						maxLength={200}
 						style={styles.inputText}
+						onChangeText={this.handleInputKeyword.bind(this)}
 					/>
 					<TouchableOpacity
 						style={styles.searchButtonContainer}
-						onPress={() => { }}
+						onPress={this.search.bind(this)}
 					>
 						<Image
 							source={R.ICON_SEARCH_BUTTON}
