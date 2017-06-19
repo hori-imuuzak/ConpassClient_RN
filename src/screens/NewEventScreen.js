@@ -99,9 +99,6 @@ export default class NewEventScreen extends Component {
 					renderItem={this.renderRow}
 					keyExtractor={(item, index) => index}
 					onViewableItemsChanged={(info) => {
-						// これで一番下にいるindexは取れるので、更新中のstateを持てば更新できそう	
-						//   アクションを常に飛ばして、アクション側でstateを変えるかどうか判別する?
-						//	 or Componentのレベルでアクションを飛ばすかどうかにする？
 						const tailItemIndex = info.changed[info.changed.length - 1].index;
 						if (!isLoading && tailItemIndex === events.length - 1) {
 							loadNewEvents(nextPage);

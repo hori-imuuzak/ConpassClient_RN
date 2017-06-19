@@ -12,16 +12,16 @@ import EventDetailReducer from './reducers/EventDetailReducer';
 
 const logger = createLogger();
 
-export default (initialState = {}) => (
-	createStore(
-		combineReducers({
-			newEvents: NewEventsReducer,
-			eventDetail: EventDetailReducer,
-		}),
-		initialState,
-		applyMiddleware(
-			logger, 
-			promiseMiddleware, 
-			thunkMiddleware)
-	)
-)
+const store = createStore(
+	combineReducers({
+		newEvents: NewEventsReducer,
+		eventDetail: EventDetailReducer,
+	}),
+	{},
+	applyMiddleware(
+		logger,
+		promiseMiddleware,
+		thunkMiddleware)
+);
+
+export default store;
