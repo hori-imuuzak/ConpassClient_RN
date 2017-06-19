@@ -10,6 +10,10 @@ export default (state = initialState, action = {}) => {
 	let newState = Object.assign({}, state);
 
 	switch (action.type) {
+		case ActionTypes.ACTION_NEW_SEARCH:
+			newState.events = [];
+			return newState;
+
 		case ActionTypes.ACTION_SEARCHING_EVENTS:
 			newState.isLoading = true;
 			return newState;

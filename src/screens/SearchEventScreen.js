@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 import * as R from '../consts/R';
+import SearchingModal from '../components/SearchingModal';
 
 const styles = {
 	label: {
@@ -55,6 +56,20 @@ export default class SearchEventScreen extends Component {
 		};
 	}
 
+	componentWillReceiveProps(nextProps) {
+		const {
+			events,
+			isLoading,
+			nextPage,
+		} = nextProps;
+
+		this.setState({
+			events: events,
+			isLoading: isLoading,
+			nextPage: nextPage,
+		});
+	}
+
 	handleInputKeyword(input) {
 		this.setState({
 			keyword: input,
@@ -67,10 +82,15 @@ export default class SearchEventScreen extends Component {
 			page,
 		} = this.state;
 
-		this.props.searchEvent(page, keyword.replace('　', ' ').split(' '))
+		// 新しく検索
+		this.props.searchEvent(1, keyword.replace('　', ' ').split(' '))
 	}
 
 	render() {
+		const {
+			isLoading
+		} = this.state;
+
 		return (
 			<View style={{
 				flex: 1
@@ -95,6 +115,12 @@ export default class SearchEventScreen extends Component {
 					</TouchableOpacity>
 				</View>
 				<View>
+					{
+						isLoading ?
+							<SearchingModal
+								visible
+							/> : null
+					}
 				</View>
 			</View>
 		);

@@ -9,7 +9,7 @@ export const ActionTypes = {
 
 const fetchNewEvents = (page) => {
 	return new Promise((resolve, reject) => {
-		const url = API.GET_NEW_EVENTS.replace("0", page);
+		const url = API.GET_NEW_EVENTS.replace("p0", page);
 		axios.get(url)
 			.then((response) => {
 				resolve(response);
