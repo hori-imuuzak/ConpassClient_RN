@@ -37,7 +37,7 @@ export default class Splash extends Component {
 				]
 			})
 			this.props.navigation.dispatch(resetAction);
-		}, 1000/*3000*/);
+		}, 3000);
 	}
 
 	componentWillUnmount() {
