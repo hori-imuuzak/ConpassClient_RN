@@ -6,11 +6,16 @@ import {
 	TouchableOpacity,
 	TextInput,
 	StyleSheet,
+	Alert,
 } from 'react-native';
 
 import SearchingModal from '../components/SearchingModal';
 
+import NotFoundModal from '../components/NotFoundModal';
+
 import SearchInputText from '../components/SearchInputText';
+
+import EventList from '../components/EventList';
 
 const styles = {
 	label: {
@@ -28,7 +33,11 @@ export default class SearchEventScreen extends Component {
 			isLoading: props.isLoading,
 			page: props.nextPage,
 			keyword: '',
+			notFound: false,
 		};
+
+		this.handleInputKeyword = this.handleInputKeyword.bind(this);
+		this.search = this.search.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -42,6 +51,7 @@ export default class SearchEventScreen extends Component {
 			events: events,
 			isLoading: isLoading,
 			nextPage: nextPage,
+			notFound: (!isLoading && events.length === 0),
 		});
 	}
 
@@ -61,10 +71,25 @@ export default class SearchEventScreen extends Component {
 		this.props.searchEvent(1, keyword.replace('　', ' ').split(' '))
 	}
 
+	searchNextPage(nextPage) {
+
+	}
+
+	modalEventNotFound() {
+
+	}
+
 	render() {
 		const {
-			isLoading
+			events,
+			isLoading,
+			nextPage,
+			notFound,
 		} = this.state;
+
+		const {
+			navigation,
+		} = this.props;
 
 		return (
 			<View style={{
@@ -72,13 +97,25 @@ export default class SearchEventScreen extends Component {
 			}}>
 				<Text style={styles.label}>キーワード</Text>
 				<SearchInputText
-					onInputText={this.handleInputKeyword.bind(this)}
-					onClickSearch={this.search.bind(this)}
+					onInputText={this.handleInputKeyword}
+					onClickSearch={this.search}
+				/>
+				<EventList
+					dataList={events}
+					onClickItem={(event) => { this.props.openEvent(navigation, event) }}
+					isLoading={isLoading}
+					onScrollBottom={() => { }}
 				/>
 				<View>
 					{
 						isLoading ?
 							<SearchingModal
+								visible
+							/> : null
+					}
+					{
+						notFound ?
+							<NotFoundModal
 								visible
 							/> : null
 					}

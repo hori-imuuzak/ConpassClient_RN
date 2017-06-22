@@ -20,7 +20,6 @@ export default class NewEventScreen extends Component {
 	}
 
 	componentWillMount() {
-		console.log(this.props);
 		this.props.loadNewEvents(this.state.page);
 	}
 
@@ -57,6 +56,6 @@ export default class NewEventScreen extends Component {
 				isLoading={isLoading}
 				onScrollBottom={() => { loadNewEvents(nextPage) }}
 			/>
-		);
+		)
 	}
 }

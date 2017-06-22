@@ -4,7 +4,7 @@ export default StyleSheet.create({
   inputContainer: {
     flex: 1,
     flexDirection: 'row',
-    maxHeight: 40,
+    maxHeight: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },
