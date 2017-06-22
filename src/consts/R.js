@@ -2,6 +2,8 @@ export const
 	IMAGE_CONPASS = require('ConnpassClient/res/image/conpass.png'),
 	IMAGE_NEW_EVENT = require('ConnpassClient/res/image/new.png'),
 	IMAGE_SEARCH_EVENT = require('ConnpassClient/res/image/search.png'),
+	IMAGE_FAVORITE = require('ConnpassClient/res/image/favorite.png'),
+	IMAGE_ACCOUNT = require('ConnpassClient/res/image/account.png'),
 	ICON_EVENT_TITLE = require('ConnpassClient/res/image/newspaper.png'),
 	ICON_EVENT_CATCH = require('ConnpassClient/res/image/writing.png'),
 	ICON_EVENT_OWNER = require('ConnpassClient/res/image/account.png'),
