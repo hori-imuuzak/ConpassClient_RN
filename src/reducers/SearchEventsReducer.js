@@ -1,4 +1,4 @@
-import { ActionTypes } from '../actions/SearchEventsAction';
+import { types } from '../consts/ActionTypes';
 
 let initialState = {
 	events: [],
@@ -10,15 +10,15 @@ export default (state = initialState, action = {}) => {
 	let newState = Object.assign({}, state);
 
 	switch (action.type) {
-		case ActionTypes.ACTION_NEW_SEARCH:
+		case types.ACTION_NEW_SEARCH:
 			newState.events = [];
 			return newState;
 
-		case ActionTypes.ACTION_SEARCHING_EVENTS:
+		case types.ACTION_SEARCHING_EVENTS:
 			newState.isLoading = true;
 			return newState;
 
-		case ActionTypes.ACTION_SEARCHED_EVENTS:
+		case types.ACTION_SEARCHED_EVENTS:
 			let events = action.payload || newState.events;
 			newState = {
 				events: [...newState.events, ...events],

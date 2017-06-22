@@ -1,4 +1,4 @@
-import { ActionTypes } from '../actions/EventAction';
+import { types } from '../consts/ActionTypes';
 
 let initialState = {
 	event: {},
@@ -7,8 +7,8 @@ let initialState = {
 export default (state = initialState, action = {}) => {
 	let newState = Object.assign({}, state);
 
-	switch (ActionTypes.type) {
-		case ActionTypes.ACTION_OPEN_EVENT:
+	switch (action.type) {
+		case types.ACTION_OPEN_EVENT:
 			newState.event = action.payload || {};
 			return newState;
 

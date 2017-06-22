@@ -2,10 +2,7 @@ import axios from 'axios';
 
 import * as API from '../consts/API';
 
-export const ActionTypes = {
-	ACTION_LOADING_EVENTS: "action_loading_events",
-	ACTION_LOADED_EVENTS: "action_loaded_events",
-}
+import { types } from '../consts/ActionTypes';
 
 const fetchNewEvents = (page) => {
 	return new Promise((resolve, reject) => {
@@ -22,19 +19,19 @@ const fetchNewEvents = (page) => {
 
 export const loadNewEvents = (page) => {
 	return (dispatch, getState) => {
-		dispatch({ type: ActionTypes.ACTION_LOADING_EVENTS });
+		dispatch({ type: types.ACTION_LOADING_EVENTS });
 
 		fetchNewEvents(page)
 			.then((response) => {
 				dispatch({
-					type: ActionTypes.ACTION_LOADED_EVENTS,
+					type: types.ACTION_LOADED_EVENTS,
 					payload: response.data.events,
 					nextPage: page + 1,
 				})
 			})
 			.catch((error) => {
 				dispatch({
-					type: ActionTypes.ACTION_LOADED_EVENTS,
+					type: types.ACTION_LOADED_EVENTS,
 					payload: [],
 				})
 			});

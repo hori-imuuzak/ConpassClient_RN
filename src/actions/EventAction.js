@@ -1,12 +1,10 @@
-export const ActionTypes = {
-	ACTION_OPEN_EVENT: "action_open_event",
-}
+import { types } from '../consts/ActionTypes';
 
 export const openEvent = (navigation, event) => {
 	navigation.navigate('EventScreen');
 	
 	return {
-		type: ActionTypes.ACTION_OPEN_EVENT,
+		type: types.ACTION_OPEN_EVENT,
 		payload: event,
 	}
 }
