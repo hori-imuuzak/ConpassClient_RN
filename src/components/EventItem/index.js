@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import {
 	View,
 	TouchableOpacity,
+	Text,
 } from 'react-native';
+
 import IconText from '../IconText';
+import FavoriteButton from '../FavoriteButton';
+
 import * as R from '../../consts/R';
 import styles from './style';
 
@@ -15,8 +19,6 @@ const TEXT_MAX_LENGTH = 24;
 export default class EventItem extends Component {
 	constructor(props) {
 		super(props);
-
-		console.log(this.props);
 
 		this.displayDatetime = this.displayDatetime.bind(this);
 		this.displayText = this.displayText.bind(this);
@@ -37,11 +39,11 @@ export default class EventItem extends Component {
 	displayDatetime(dateText) {
 		const date = new Date(dateText);
 
-		return `${date.getFullYear()}年`+
-					 `${date.getMonth() + 1}月`+
-					 `${date.getDate()}日(${TextWeekday[date.getDay()]}) `+
-					 `${date.getHours()}:`+
-					 `0${date.getMinutes()}`.slice(-2);
+		return `${date.getFullYear()}年` +
+			`${date.getMonth() + 1}月` +
+			`${date.getDate()}日(${TextWeekday[date.getDay()]}) ` +
+			`${date.getHours()}:` +
+			`0${date.getMinutes()}`.slice(-2);
 	}
 
 	render() {
@@ -65,7 +67,7 @@ export default class EventItem extends Component {
 				style={styles.container}
 				onPress={this.props.onPress}>
 				<IconText
-					style={{fontSize: 16}}
+					style={{ fontSize: 16 }}
 					iconSrc={R.ICON_EVENT_TITLE}
 					text={this.displayText(title)} />
 				<IconText
@@ -85,6 +87,12 @@ export default class EventItem extends Component {
 				<IconText
 					iconSrc={R.ICON_EVENT_CLOCK}
 					text={this.displayDatetime(started_at)} />
+				<View
+					style={styles.favoriteButton}>
+					<FavoriteButton
+						onFavoriteChange={() => { }}
+					/>
+				</View>
 			</TouchableOpacity>
 		);
 	}

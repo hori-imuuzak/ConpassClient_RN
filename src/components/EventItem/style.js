@@ -11,4 +11,14 @@ export default StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row',
 	},
+	favoriteButton: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 4,
+		bottom: 4,
+		opacity: 0.5,
+		alignItems: 'flex-end',
+		justifyContent: 'flex-end',
+	},
 })

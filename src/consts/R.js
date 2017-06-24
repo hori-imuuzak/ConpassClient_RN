@@ -10,4 +10,6 @@ export const
 	ICON_EVENT_GROUP = require('ConnpassClient/res/image/group.png'),
 	ICON_EVENT_LOCATION = require('ConnpassClient/res/image/map.png'),
 	ICON_EVENT_CLOCK = require('ConnpassClient/res/image/clock.png'),
-	ICON_SEARCH_BUTTON = require('ConnpassClient/res/image/search_icon.png');
+	ICON_SEARCH_BUTTON = require('ConnpassClient/res/image/search_icon.png'),
+	IMAGE_FAVORITED = require('ConnpassClient/res/image/favorited.png'),
+	IMAGE_FAVORITE_NONE = require('ConnpassClient/res/image/favorite_none.png');
