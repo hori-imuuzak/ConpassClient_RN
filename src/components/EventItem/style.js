@@ -15,7 +15,7 @@ export default StyleSheet.create({
 		position: 'absolute',
 		top: 0,
 		left: 0,
-		right: 4,
+		right: 10,
 		bottom: 4,
 		opacity: 0.5,
 		alignItems: 'flex-end',
