@@ -20,12 +20,14 @@ const searchEvents = (page, keywordList) => {
 	})
 }
 
+export const clearSearch = () => {
+	return {
+		type: types.ACTION_CLEAR_SEARCH,
+	};
+}
+
 export const searchEvent = (page, keywordList) => {
 	return (dispatch, getState) => {
-		if (page == 1) {
-			dispatch({ type: types.ACTION_NEW_SEARCH });
-		}
-
 		dispatch({ type: types.ACTION_SEARCHING_EVENTS });
 
 		searchEvents(page, keywordList)

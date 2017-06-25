@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import {
+  clearSearch,
   searchEvent,
 } from '../actions/SearchEventsAction';
 
@@ -26,6 +27,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => (
   bindActionCreators({
+    clearSearch,
     searchEvent,
     openEvent,
     addFavorite,

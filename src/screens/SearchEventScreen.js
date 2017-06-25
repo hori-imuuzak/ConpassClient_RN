@@ -34,13 +34,14 @@ export default class SearchEventScreen extends Component {
 			events: props.events,
 			favorites: props.favorites,
 			isLoading: props.isLoading,
-			page: props.nextPage,
 			keyword: '',
 			isShowNotFound: props.isShowNotFound,
 		};
 
 		this.handleInputKeyword = this.handleInputKeyword.bind(this);
 		this.search = this.search.bind(this);
+		this.favoriteChange = this.favoriteChange.bind(this)
+		this.onHideNotFound = this.onHideNotFound.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -48,7 +49,6 @@ export default class SearchEventScreen extends Component {
 			events,
 			favorites,
 			isLoading,
-			nextPage,
 			isShowNotFound,
 		} = nextProps;
 
@@ -56,7 +56,6 @@ export default class SearchEventScreen extends Component {
 			events: events,
 			favorites: favorites,
 			isLoading: isLoading,
-			nextPage: nextPage,
 			isShowNotFound: isShowNotFound,
 		});
 	}
@@ -74,6 +73,7 @@ export default class SearchEventScreen extends Component {
 		} = this.state;
 
 		// 新しく検索
+		this.props.clearSearch();
 		this.props.searchEvent(1, keyword.replace('　', ' ').split(' '));
 	}
 
@@ -82,9 +82,7 @@ export default class SearchEventScreen extends Component {
 	}
 
 	onHideNotFound() {
-		this.setState({
-			isShowNotFound: false,
-		});
+		this.props.clearSearch();
 	}
 
 	favoriteChange(isFavorite, event) {
@@ -100,15 +98,15 @@ export default class SearchEventScreen extends Component {
 			events,
 			favorites,
 			isLoading,
-			nextPage,
 			isShowNotFound,
 		} = this.state;
 
 		const {
 			navigation,
+			nextPage,
 		} = this.props;
 
-		console.log(isShowNotFound);
+		console.log('isShowNotFound:', isShowNotFound, 'isLoading:', isLoading);
 
 		return (
 			<View style={{
@@ -128,17 +126,19 @@ export default class SearchEventScreen extends Component {
 					dataList={events}
 					favoriteList={favorites}
 					onClickItem={(event) => { this.props.openEvent(navigation, event) }}
-					onFavoriteChange={this.favoriteChange.bind(this)}
+					onFavoriteChange={this.favoriteChange}
 					isLoading={isLoading}
 					onScrollBottom={() => { }}
 				/>
-				<SearchingModal
-					visible={isLoading}
-				/>
-				<NotFoundModal
-					visible={isShowNotFound}
-					onHide={this.onHideNotFound.bind(this)}
-				/>
+				<View>
+					<SearchingModal
+						visible={isLoading}
+					/>
+					<NotFoundModal
+						visible={isShowNotFound}
+						onHide={this.onHideNotFound}
+					/>
+				</View>
 			</View>
 		);
 	}

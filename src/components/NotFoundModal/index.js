@@ -13,8 +13,10 @@ export default class NotFoundModal extends Component {
 		super(props);
 
 		this.state = {
-			visible: true,
+			visible: props.visible,
 		};
+
+		this.hide = this.hide.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -47,7 +49,7 @@ export default class NotFoundModal extends Component {
 					style={{
 						flex: 1,
 					}}
-					onPress={this.hide.bind(this)}>
+					onPress={this.hide}>
 					<View
 						style={styles.modalFlex}>
 					</View>
