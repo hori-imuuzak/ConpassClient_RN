@@ -52,7 +52,7 @@ export default class NewEventScreen extends Component {
 			favorites
 		} = this.state;
 
-		if (Object.keys(favorites).indexOf(`${event.event_id}`) < 0) {
+		if (favorites.filter((i) => (i.event_id === event.event_id)).length === 0) {
 			this.props.addFavorite(event);
 		} else {
 			this.props.removeFavorite(event);

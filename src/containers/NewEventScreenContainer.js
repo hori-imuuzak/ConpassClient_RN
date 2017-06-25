@@ -18,7 +18,7 @@ import NewEventScreen from '../screens/NewEventScreen';
 
 const mapStateToProps = (state) => ({
   events: state.newEvents.events,
-  favorites: state.favorite.events,
+  favorites: state.newEvents.favorites,
   isLoading: state.newEvents.isLoading,
   nextPage: state.newEvents.nextPage,
 });

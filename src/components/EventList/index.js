@@ -15,6 +15,7 @@ export default class EventList extends Component {
 
     this.state = {
       isLoading: props.isLoading,
+      favoriteList: props.favoriteList,
     };
 
     this.renderIndicator = this.renderIndicator.bind(this);
@@ -24,10 +25,12 @@ export default class EventList extends Component {
   componentWillReceiveProps(nextProps) {
     const {
       isLoading,
+      favoriteList,
     } = nextProps;
 
     this.setState({
       isLoading: isLoading,
+      favoriteList: favoriteList,
     });
   }
 
@@ -48,15 +51,20 @@ export default class EventList extends Component {
       onFavoriteChange,
     } = this.props;
 
+    const {
+      favoriteList,
+    } = this.state;
+
+    const isFavorite = (Object.values(favoriteList).filter((i) => { i.event_id === event.item.event_id }).length > 0);
+
     return (
       <View style={styles.itemStyle}>
         <EventItem
           event={event.item}
           onPress={() => { onClickItem(event) }}
+          isFavorite={isFavorite}
           toggleFavorite={(event) => {
-            if (onFavoriteChange) {
-              onFavoriteChange(event)
-            }
+            if (onFavoriteChange) onFavoriteChange(event);
           }}
         />
       </View>
@@ -73,11 +81,7 @@ export default class EventList extends Component {
       onScrollBottom,
     } = this.props;
 
-    const {
-      isLoading,
-    } = this.state;
-
-    console.log('isLoading:', isLoading);
+    const isLoading = this.state.isLoading || false;
 
     return (
       <View style={{ flex: 1 }}>

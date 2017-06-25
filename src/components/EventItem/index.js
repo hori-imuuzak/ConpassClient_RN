@@ -21,7 +21,7 @@ export default class EventItem extends Component {
 		super(props);
 
 		this.state = {
-			isFavorite: props.isFavorite || false,
+			isFavorite: props.isFavorite,
 		};
 
 		this.displayDatetime = this.displayDatetime.bind(this);
@@ -30,7 +30,7 @@ export default class EventItem extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.setState({
-			isFavorite: nextProps.isFavorite || false,
+			isFavorite: nextProps.isFavorite,
 		});
 	}
 	

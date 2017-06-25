@@ -2,6 +2,7 @@ import { types } from '../consts/ActionTypes';
 
 const initialState = {
 	events: [],
+	favorites: [],
 	isLoading: false,
 	nextPage: 1,
 }
@@ -19,6 +20,15 @@ export default (state = initialState, action = {}) => {
 			newState.events = [...newState.events, ...events];
 			newState.isLoading = false;
 			newState.nextPage = action.nextPage || newState.nextPage;
+			return newState;
+
+		case types.ACTION_ADD_FAVORITE:
+			newState.favorites = [].concat(newState.favorites, action.payload);
+			return newState;
+
+		case types.ACTION_REMOVE_FAVORITE:
+			newState.favorites.splice(
+				newState.favorites.findIndex((i) => (i.event_id === action.payload.event_id)), 1);
 			return newState;
 
 		default:

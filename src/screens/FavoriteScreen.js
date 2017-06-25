@@ -53,14 +53,13 @@ export default class FavoriteScreen extends Component {
 				>
 					お気に入り
 				</Title>
-				{this.renderFavoriteEmpty()}
-				{/*{events.length === 0 ? this.renderFavoriteEmpty() :
+				{events.length === 0 ? this.renderFavoriteEmpty() :
 					<EventList
 						dataList={events}
 						favoriteList={events}
 						onClickItem={(event) => { openEvent(navigation, event) }}
 					/>
-				}*/}
+				}
 			</View>
 		);
 	}
