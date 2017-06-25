@@ -20,10 +20,20 @@ export default class EventItem extends Component {
 	constructor(props) {
 		super(props);
 
+		this.state = {
+			isFavorite: props.isFavorite || false,
+		};
+
 		this.displayDatetime = this.displayDatetime.bind(this);
 		this.displayText = this.displayText.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			isFavorite: nextProps.isFavorite || false,
+		});
+	}
+	
 	displayText(text) {
 		if (!text) {
 			return '未設定';
@@ -47,6 +57,8 @@ export default class EventItem extends Component {
 	}
 
 	render() {
+		const event = this.props.event;
+
 		let {
 			title,
 			owner_nickname,
@@ -54,8 +66,13 @@ export default class EventItem extends Component {
 			limit,
 			place,
 			started_at,
-		} = this.props.event;
-		const catchText = this.props.event.catch;
+		} = event;
+
+		const catchText = event.catch;
+		
+		const {
+			isFavorite,
+		} = this.state;
 
 		if (limit == null || limit == 0) {
 			limit = '-';
@@ -90,7 +107,8 @@ export default class EventItem extends Component {
 				<View
 					style={styles.favoriteButton}>
 					<FavoriteButton
-						onFavoriteChange={(isFavorite) => { this.props.onFavoriteChange(isFavorite) }}
+						onPress={() => { this.props.toggleFavorite(event) }}
+						isFavorite={isFavorite}
 					/>
 				</View>
 			</TouchableOpacity>

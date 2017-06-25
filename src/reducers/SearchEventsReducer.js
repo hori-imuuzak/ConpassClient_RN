@@ -2,7 +2,7 @@ import { types } from '../consts/ActionTypes';
 
 const initialState = {
 	events: [],
-	isLoading: false,
+	isSearching: false,
 	nextPage: 1,
 	isShowNotFound: false,
 }
@@ -15,7 +15,7 @@ export default (state = initialState, action = {}) => {
 			return Object.assign({}, initialState);
 
 		case types.ACTION_SEARCHING_EVENTS:
-			newState.isLoading = true;
+			newState.isSearching = true;
 			newState.isShowNotFound = false;
 			return newState;
 
@@ -28,12 +28,11 @@ export default (state = initialState, action = {}) => {
 				nextPage = 1;
 			}
 
-			return {
-				events: [...newState.events, ...events],
-				isLoading: false,
-				nextPage: nextPage,
-				isShowNotFound: isShowNotFound,
-			}
+			newState.events = [...newState.events, ...events];
+			newState.isSearching = false;
+			newState.nextPage = nextPage;
+			newState.isShowNotFound = isShowNotFound;
+			return newState;
 
 		default:
 			return newState;

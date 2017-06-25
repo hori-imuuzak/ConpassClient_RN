@@ -9,8 +9,8 @@ export default class EventScreen extends Component {
 		return (
 			<View>
 				<Text>アカウント情報(特に意味がない画面)</Text>
-				<Text>名前・アカウント名くらいは設定する</Text>
-				<Text>写真をカメラ・アルバムから取れるようにする</Text>
+				<Text>アカウント名・アイコンを設定する</Text>
+				<Text>アイコンはカメラ・アルバムから取得できるようにする</Text>
 			</View>
 		);
 	}

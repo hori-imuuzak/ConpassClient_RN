@@ -15,7 +15,6 @@ export default class EventList extends Component {
 
     this.state = {
       isLoading: props.isLoading,
-      favoriteList: props.favoriteList,
     };
 
     this.renderIndicator = this.renderIndicator.bind(this);
@@ -23,15 +22,18 @@ export default class EventList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const {
+      isLoading,
+    } = nextProps;
+
     this.setState({
-      isLoading: nextProps.isLoading,
-      favoriteList: nextProps.favoriteList,
+      isLoading: isLoading,
     });
   }
 
   renderIndicator() {
     return (
-      <View style={[styles.itemStyle, styles.backgroundWhite]}>
+      <View style={styles.itemStyle}>
         <ActivityIndicator
           style={styles.indicator}
           animating
@@ -46,18 +48,14 @@ export default class EventList extends Component {
       onFavoriteChange,
     } = this.props;
 
-    const {
-      favoriteList,
-    } = this.state;
-
     return (
       <View style={styles.itemStyle}>
         <EventItem
           event={event.item}
           onPress={() => { onClickItem(event) }}
-          onFavoriteChange={(isFavorite) => {
+          toggleFavorite={(event) => {
             if (onFavoriteChange) {
-              onFavoriteChange(isFavorite, event)
+              onFavoriteChange(event)
             }
           }}
         />
@@ -79,18 +77,18 @@ export default class EventList extends Component {
       isLoading,
     } = this.state;
 
+    console.log('isLoading:', isLoading);
+
     return (
       <View style={{ flex: 1 }}>
         <FlatList
           data={dataList}
           renderItem={this.renderItem}
           keyExtractor={(item, index) => index}
-          onViewableItemsChanged={(info) => {
-            const tailItemIndex = info.changed[info.changed.length - 1].index;
-            if (!isLoading && tailItemIndex === dataList.length - 1) {
-              if (onScrollBottom) onScrollBottom()
-            }
-          }} />
+          onEndReached={(info) => {
+            if (!isLoading && onScrollBottom) onScrollBottom()
+          }}
+        />
         {isLoading ? this.renderIndicator() : null}
       </View>
     );

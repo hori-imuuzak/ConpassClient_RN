@@ -33,7 +33,7 @@ export default class SearchEventScreen extends Component {
 		this.state = {
 			events: props.events,
 			favorites: props.favorites,
-			isLoading: props.isLoading,
+			isSearching: props.isSearching,
 			keyword: '',
 			isShowNotFound: props.isShowNotFound,
 		};
@@ -48,14 +48,14 @@ export default class SearchEventScreen extends Component {
 		const {
 			events,
 			favorites,
-			isLoading,
+			isSearching,
 			isShowNotFound,
 		} = nextProps;
 
 		this.setState({
 			events: events,
 			favorites: favorites,
-			isLoading: isLoading,
+			isSearching: isSearching,
 			isShowNotFound: isShowNotFound,
 		});
 	}
@@ -85,8 +85,12 @@ export default class SearchEventScreen extends Component {
 		this.props.clearSearch();
 	}
 
-	favoriteChange(isFavorite, event) {
-		if (isFavorite) {
+	favoriteChange(event) {
+		const {
+			favorites
+		} = this.state;
+
+		if (Object.keys(favorites).indexOf(`${event.event_id}`) < 0) {
 			this.props.addFavorite(event);
 		} else {
 			this.props.removeFavorite(event);
@@ -97,7 +101,7 @@ export default class SearchEventScreen extends Component {
 		const {
 			events,
 			favorites,
-			isLoading,
+			isSearching,
 			isShowNotFound,
 		} = this.state;
 
@@ -106,12 +110,16 @@ export default class SearchEventScreen extends Component {
 			nextPage,
 		} = this.props;
 
-		console.log('isShowNotFound:', isShowNotFound, 'isLoading:', isLoading);
-
 		return (
 			<View style={{
 				flex: 1
 			}}>
+				{isSearching ?
+					<View>
+						<SearchingModal
+							visible={isSearching}
+						/>
+					</View> : null}
 				<Title
 					theme='skyblue'
 				>
@@ -127,18 +135,9 @@ export default class SearchEventScreen extends Component {
 					favoriteList={favorites}
 					onClickItem={(event) => { this.props.openEvent(navigation, event) }}
 					onFavoriteChange={this.favoriteChange}
-					isLoading={isLoading}
+					isLoading={false}
 					onScrollBottom={() => { }}
 				/>
-				<View>
-					<SearchingModal
-						visible={isLoading}
-					/>
-					<NotFoundModal
-						visible={isShowNotFound}
-						onHide={this.onHideNotFound}
-					/>
-				</View>
 			</View>
 		);
 	}

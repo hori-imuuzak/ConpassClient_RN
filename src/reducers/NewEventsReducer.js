@@ -16,11 +16,10 @@ export default (state = initialState, action = {}) => {
 
 		case types.ACTION_LOADED_EVENTS:
 			const events = action.payload || newState.events;
-			return {
-				events: [...newState.events, ...events],
-				isLoading: false,	
-				nextPage: action.nextPage || newState.nextPage,
-			};
+			newState.events = [...newState.events, ...events];
+			newState.isLoading = false;
+			newState.nextPage = action.nextPage || newState.nextPage;
+			return newState;
 
 		default:
 			return newState;

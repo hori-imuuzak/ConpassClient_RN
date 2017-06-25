@@ -15,37 +15,28 @@ export default class FavoriteButton extends Component {
     this.state = {
       isFavorite: props.isFavorite || false,
     };
-
-    this.toggleFavorite = this.toggleFavorite.bind(this);
   }
 
-  toggleFavorite() {
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      isFavorite: nextProps.isFavorite,
+    });
+  }
+
+  render() {
     const {
-      onFavoriteChange,
+      onPress,
     } = this.props;
 
     const {
       isFavorite,
     } = this.state;
 
-    const nextFavorite = !isFavorite;
-
-    this.setState({
-      isFavorite: nextFavorite,
-    });
-
-    onFavoriteChange(nextFavorite);
-  }
-
-  render() {
-    const {
-      isFavorite,
-    } = this.state;
-
     const favoriteImage = (isFavorite ? R.IMAGE_FAVORITED : R.IMAGE_FAVORITE_NONE);
+
     return (
       <TouchableOpacity
-        onPress={this.toggleFavorite}
+        onPress={onPress}
       >
         <Image
           style={styles.favImage}

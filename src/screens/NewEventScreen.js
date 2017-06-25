@@ -23,6 +23,8 @@ export default class NewEventScreen extends Component {
 			isLoading: props.isLoading,
 			page: props.nextPage,
 		}
+
+		this.favoriteChange = this.favoriteChange.bind(this);
 	}
 
 	componentWillMount() {
@@ -45,8 +47,12 @@ export default class NewEventScreen extends Component {
 		});
 	}
 
-	favoriteChange(isFavorite, event) {
-		if (isFavorite) {
+	favoriteChange(event) {
+		const {
+			favorites
+		} = this.state;
+
+		if (Object.keys(favorites).indexOf(`${event.event_id}`) < 0) {
 			this.props.addFavorite(event);
 		} else {
 			this.props.removeFavorite(event);
@@ -77,7 +83,7 @@ export default class NewEventScreen extends Component {
 					dataList={events}
 					favoriteList={favorites}
 					onClickItem={(event) => { this.props.openEvent(navigation, event) }}
-					onFavoriteChange={this.favoriteChange.bind(this)}
+					onFavoriteChange={this.favoriteChange}
 					isLoading={isLoading}
 					onScrollBottom={() => { loadNewEvents(nextPage) }}
 				/>

@@ -13,14 +13,14 @@ export default (state = initialState, action) => {
       return newState;
 
     case types.ACTION_ADD_FAVORITE:
-      if (event.item.event_id) {
-        newState.events[event.item.event_id] = event.item;
+      if (event.event_id) {
+        newState.events[event.event_id] = event;
       }
       return newState;
 
     case types.ACTION_REMOVE_FAVORITE:
-      if (event.item.event_id) {
-        delete newState.events[event.item.event_id];
+      if (event.event_id) {
+        delete newState.events[event.event_id];
       }
       return newState;
 
