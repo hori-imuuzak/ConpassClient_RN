@@ -10,6 +10,7 @@ import { createLogger } from 'redux-logger';
 import NewEventsReducer from './reducers/NewEventsReducer';
 import SearchEventsReducer from './reducers/SearchEventsReducer';
 import EventDetailReducer from './reducers/EventDetailReducer';
+import FavoritesReducer from './reducers/FavoritesReducer';
 
 const logger = createLogger();
 
@@ -18,6 +19,7 @@ const store = createStore(
 		newEvents: NewEventsReducer,
 		searchEvents: SearchEventsReducer,
 		eventDetail: EventDetailReducer,
+		favorite: FavoritesReducer,
 	}),
 	{},
 	applyMiddleware(

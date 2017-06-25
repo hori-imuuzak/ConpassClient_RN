@@ -7,7 +7,7 @@ import * as R from '../consts/R';
 
 import NewEventScreen from '../containers/NewEventScreenContainer';
 import SearchEventScreen from '../containers/SearchEventScreenContainer';
-import FavoriteScreen from '../screens/FavoriteScreen';
+import FavoriteScreen from '../containers/FavoriteScreenContainer';
 import AccountScreen from '../screens/AccountScreen';
 
 export default TabNavigator({

@@ -5,6 +5,12 @@ import {
 } from 'react-native';
 
 export default class FavoriteScreen extends Component {
+	constructor(props) {
+		super(props);
+
+		console.log(props);
+	}
+
 	render() {
 		return (
 			<View>
