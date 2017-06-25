@@ -4,18 +4,23 @@ import { bindActionCreators } from 'redux';
 import FavoriteScreen from '../screens/FavoriteScreen';
 
 import {
+  openEvent,
+} from '../actions/EventAction';
+
+import {
+  loadFavorites,
   addFavorite,
   removeFavorite,
 } from '../actions/FavoriteAction';
 
-const mapStateToProps = (state) => {
-  return {
-    events: state.favorite.events,
-  }
-}
+const mapStateToProps = (state) => ({
+  events: Object.values(state.favorite.events),
+})
 
 const mapDispatchToProps = (dispatch) => (
   bindActionCreators({
+    openEvent,
+    loadFavorites,
     addFavorite,
     removeFavorite,
   }, dispatch)

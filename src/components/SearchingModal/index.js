@@ -62,6 +62,12 @@ export default class SearchingModal extends Component {
 		})
 	}
 
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			visible: nextProps.visible,
+		});
+	}
+
 	componentDidMount() {
 		this.searchingAnimation();
 

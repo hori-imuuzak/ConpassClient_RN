@@ -55,7 +55,7 @@ export default class EventItem extends Component {
 			place,
 			started_at,
 		} = this.props.event;
-		let catchText = this.props.event.catch;
+		const catchText = this.props.event.catch;
 
 		if (limit == null || limit == 0) {
 			limit = '-';
@@ -90,7 +90,7 @@ export default class EventItem extends Component {
 				<View
 					style={styles.favoriteButton}>
 					<FavoriteButton
-						onFavoriteChange={() => { }}
+						onFavoriteChange={(isFavorite) => { this.props.onFavoriteChange(isFavorite) }}
 					/>
 				</View>
 			</TouchableOpacity>

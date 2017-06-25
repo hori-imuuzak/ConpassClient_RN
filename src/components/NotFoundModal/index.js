@@ -13,14 +13,22 @@ export default class NotFoundModal extends Component {
 		super(props);
 
 		this.state = {
-			visible: props.visible,
+			visible: true,
 		};
 	}
 
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			visible: nextProps.visible,
+		});
+	}
+	
 	hide() {
 		this.setState({
 			visible: false,
 		});
+
+		this.props.onHide();
 	}
 
 	render() {

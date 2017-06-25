@@ -15,6 +15,7 @@ export default class EventList extends Component {
 
     this.state = {
       isLoading: props.isLoading,
+      favoriteList: props.favoriteList,
     };
 
     this.renderIndicator = this.renderIndicator.bind(this);
@@ -24,6 +25,7 @@ export default class EventList extends Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       isLoading: nextProps.isLoading,
+      favoriteList: nextProps.favoriteList,
     });
   }
 
@@ -39,11 +41,26 @@ export default class EventList extends Component {
   }
 
   renderEvent(event) {
+    const {
+      onClickItem,
+      onFavoriteChange,
+    } = this.props;
+
+    const {
+      favoriteList,
+    } = this.state;
+
     return (
       <View style={styles.itemStyle}>
         <EventItem
           event={event.item}
-          onPress={() => { this.props.onClickItem(event) }} />
+          onPress={() => { onClickItem(event) }}
+          onFavoriteChange={(isFavorite) => {
+            if (onFavoriteChange) {
+              onFavoriteChange(isFavorite, event)
+            }
+          }}
+        />
       </View>
     )
   }
@@ -71,7 +88,7 @@ export default class EventList extends Component {
           onViewableItemsChanged={(info) => {
             const tailItemIndex = info.changed[info.changed.length - 1].index;
             if (!isLoading && tailItemIndex === dataList.length - 1) {
-              onScrollBottom()
+              if (onScrollBottom) onScrollBottom()
             }
           }} />
         {isLoading ? this.renderIndicator() : null}

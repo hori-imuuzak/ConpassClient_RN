@@ -17,6 +17,8 @@ import SearchInputText from '../components/SearchInputText';
 
 import EventList from '../components/EventList';
 
+import Title from '../components/Title';
+
 const styles = {
 	label: {
 		marginVertical: 12,
@@ -30,10 +32,11 @@ export default class SearchEventScreen extends Component {
 
 		this.state = {
 			events: props.events,
+			favorites: props.favorites,
 			isLoading: props.isLoading,
 			page: props.nextPage,
 			keyword: '',
-			notFound: false,
+			isShowNotFound: props.isShowNotFound,
 		};
 
 		this.handleInputKeyword = this.handleInputKeyword.bind(this);
@@ -43,15 +46,18 @@ export default class SearchEventScreen extends Component {
 	componentWillReceiveProps(nextProps) {
 		const {
 			events,
+			favorites,
 			isLoading,
 			nextPage,
+			isShowNotFound,
 		} = nextProps;
 
 		this.setState({
 			events: events,
+			favorites: favorites,
 			isLoading: isLoading,
 			nextPage: nextPage,
-			notFound: (!isLoading && events.length === 0),
+			isShowNotFound: isShowNotFound,
 		});
 	}
 
@@ -68,33 +74,51 @@ export default class SearchEventScreen extends Component {
 		} = this.state;
 
 		// 新しく検索
-		this.props.searchEvent(1, keyword.replace('　', ' ').split(' '))
+		this.props.searchEvent(1, keyword.replace('　', ' ').split(' '));
 	}
 
 	searchNextPage(nextPage) {
 
 	}
 
-	modalEventNotFound() {
+	onHideNotFound() {
+		this.setState({
+			isShowNotFound: false,
+		});
+	}
 
+	favoriteChange(isFavorite, event) {
+		if (isFavorite) {
+			this.props.addFavorite(event);
+		} else {
+			this.props.removeFavorite(event);
+		}
 	}
 
 	render() {
 		const {
 			events,
+			favorites,
 			isLoading,
 			nextPage,
-			notFound,
+			isShowNotFound,
 		} = this.state;
 
 		const {
 			navigation,
 		} = this.props;
 
+		console.log(isShowNotFound);
+
 		return (
 			<View style={{
 				flex: 1
 			}}>
+				<Title
+					theme='skyblue'
+				>
+					検索
+				</Title>
 				<Text style={styles.label}>キーワード</Text>
 				<SearchInputText
 					onInputText={this.handleInputKeyword}
@@ -102,24 +126,19 @@ export default class SearchEventScreen extends Component {
 				/>
 				<EventList
 					dataList={events}
+					favoriteList={favorites}
 					onClickItem={(event) => { this.props.openEvent(navigation, event) }}
+					onFavoriteChange={this.favoriteChange.bind(this)}
 					isLoading={isLoading}
 					onScrollBottom={() => { }}
 				/>
-				<View>
-					{
-						isLoading ?
-							<SearchingModal
-								visible
-							/> : null
-					}
-					{
-						notFound ?
-							<NotFoundModal
-								visible
-							/> : null
-					}
-				</View>
+				<SearchingModal
+					visible={isLoading}
+				/>
+				<NotFoundModal
+					visible={isShowNotFound}
+					onHide={this.onHideNotFound.bind(this)}
+				/>
 			</View>
 		);
 	}

@@ -1,11 +1,11 @@
 import { types } from '../consts/ActionTypes';
 
-let initialState = {
+const initialState = {
 	event: {},
 }
 
 export default (state = initialState, action = {}) => {
-	let newState = Object.assign({}, state);
+	const newState = Object.assign({}, state);
 
 	switch (action.type) {
 		case types.ACTION_OPEN_EVENT:
