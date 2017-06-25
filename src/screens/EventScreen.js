@@ -25,9 +25,8 @@ export default class EventScreen extends Component {
 	constructor(props) {
 		super(props);
 
-		const params = props.navigation.state.params;
 		this.state = {
-			event: params.event,
+			event: props.event.item,
 			isLoading: true,
 		};
 	}
@@ -48,7 +47,7 @@ export default class EventScreen extends Component {
 			<View style={styles.container}>
 				<WebView
 					
-					source={{ uri: event.item.event_url }}
+					source={{ uri: event.event_url }}
 					onLoadEnd={this.onLoadEnd.bind(this)}
 				/>
 				{isLoading ?

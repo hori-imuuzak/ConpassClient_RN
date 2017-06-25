@@ -4,7 +4,7 @@ import {
 
 import Splash from '../screens/Splash';
 import MainScreen from '../screens/MainScreen';
-import EventScreen from '../screens/EventScreen';
+import EventScreen from '../containers/EventScreenContainer';
 
 export const Route = {
 	SPLASH: 'Splash',
