@@ -34,7 +34,7 @@ export default class FavoriteScreen extends Component {
 		return (
 			<View style={styles.favoriteEmpty}>
 				<Text>お気に入りはまだありません。</Text>
-				<Text>気になるイベントはストックしましょう。</Text>
+				<Text>気になるイベントを追加してみましょう。</Text>
 			</View>
 		)
 	}

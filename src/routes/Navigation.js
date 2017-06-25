@@ -21,7 +21,7 @@ export default StackNavigator({
 	MainScreen: {
 		screen: MainScreen,
 		navigationOptions: {
-			title: 'conpass IT勉強会'
+			title: '勉強会check'
 		}
 	},
 	EventScreen: {

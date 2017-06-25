@@ -55,7 +55,7 @@ export default class EventList extends Component {
       favoriteList,
     } = this.state;
 
-    const isFavorite = (Object.values(favoriteList).filter((i) => { i.event_id === event.item.event_id }).length > 0);
+    const isFavorite = (Object.values(favoriteList).filter((i) => (i.event_id === event.item.event_id)).length > 0);
 
     return (
       <View style={styles.itemStyle}>
