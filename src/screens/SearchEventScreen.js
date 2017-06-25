@@ -114,12 +114,6 @@ export default class SearchEventScreen extends Component {
 			<View style={{
 				flex: 1
 			}}>
-				{isSearching ?
-					<View>
-						<SearchingModal
-							visible={isSearching}
-						/>
-					</View> : null}
 				<Title
 					theme='skyblue'
 				>
@@ -137,6 +131,15 @@ export default class SearchEventScreen extends Component {
 					onFavoriteChange={this.favoriteChange}
 					isLoading={false}
 					onScrollBottom={() => { }}
+				/>
+				{isSearching ?
+					<SearchingModal
+						visible={isSearching}
+					/>
+					: null}
+				<NotFoundModal
+					visible={isShowNotFound}
+					onHide={this.onHideNotFound}
 				/>
 			</View>
 		);
