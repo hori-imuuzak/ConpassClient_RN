@@ -6,13 +6,13 @@
 
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import store from './Store';
+import configStore from './Store';
 import Navigation from './routes/Navigation';
 
 export default class App extends Component {
   render() {
     return (
-			<Provider store={store}>
+			<Provider store={configStore()}>
 	      <Navigation />
 			</Provider>
     );

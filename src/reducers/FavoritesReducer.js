@@ -1,3 +1,5 @@
+import { REHYDRATE } from 'redux-persist/constants';
+
 import { types } from '../consts/ActionTypes';
 
 const initialState = {
@@ -9,6 +11,16 @@ export default (state = initialState, action) => {
   const event = action.payload;
 
   switch (action.type) {
+    case REHYDRATE:
+      let incoming = action.payload.favorite;
+      if (incoming) {
+        return {
+          ...newState,
+          ...incoming,
+        };
+      }
+      return newState;
+
     case types.ACTION_LOAD_FAVORITES:
       return newState;
 

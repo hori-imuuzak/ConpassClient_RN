@@ -1,3 +1,5 @@
+import { REHYDRATE } from 'redux-persist/constants';
+
 import { types } from '../consts/ActionTypes';
 
 const initialState = {
@@ -14,6 +16,13 @@ export default (state = initialState, action = {}) => {
 	let events;
 
 	switch (action.type) {
+		case REHYDRATE:
+      let incoming = action.payload.searchEvents;
+      if (incoming) {
+				newState.favorites = incoming.favorites;
+      }
+      return newState;
+
 		case types.ACTION_CLEAR_SEARCH:
 			return Object.assign({}, initialState);
 
