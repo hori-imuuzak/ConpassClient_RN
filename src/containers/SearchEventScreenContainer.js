@@ -19,7 +19,7 @@ import SearchEventScreen from '../screens/SearchEventScreen';
 
 const mapStateToProps = (state) => ({
   events: state.searchEvents.events,
-  favorites: state.favorite.events,
+  favorites: state.searchEvents.favorites,
   isSearching: state.searchEvents.isSearching,
   nextPage: state.searchEvents.nextPage,
   isShowNotFound: state.searchEvents.isShowNotFound,

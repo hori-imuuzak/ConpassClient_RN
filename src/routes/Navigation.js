@@ -21,13 +21,14 @@ export default StackNavigator({
 	MainScreen: {
 		screen: MainScreen,
 		navigationOptions: {
-			title: '勉強会check'
+			title: '勉強会check',
+			headerBackTitle: null,
 		}
 	},
 	EventScreen: {
 		screen: EventScreen,
 		navigationOptions: {
-			title: 'イベント詳細'
+			title: 'イベント詳細',
 		}
 	}
 })

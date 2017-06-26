@@ -2,6 +2,7 @@ import { types } from '../consts/ActionTypes';
 
 const initialState = {
 	events: [],
+	favorites: [],
 	isSearching: false,
 	nextPage: 1,
 	isShowNotFound: false,
@@ -33,6 +34,17 @@ export default (state = initialState, action = {}) => {
 			newState.nextPage = nextPage;
 			newState.isShowNotFound = isShowNotFound;
 			return newState;
+
+		case types.ACTION_ADD_FAVORITE:
+			newState.favorites = [].concat(newState.favorites, action.payload);
+			return newState;
+
+		case types.ACTION_REMOVE_FAVORITE:
+			const removeIndex = newState.favorites.findIndex((i) => (i.event_id === action.payload.event_id));
+			newState.favorites = newState.favorites.slice(removeIndex + 1);
+			return {
+				...newState,
+			};
 
 		default:
 			return newState;
