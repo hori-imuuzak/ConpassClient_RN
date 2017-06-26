@@ -27,9 +27,11 @@ export default (state = initialState, action = {}) => {
 			return newState;
 
 		case types.ACTION_REMOVE_FAVORITE:
-			newState.favorites.splice(
-				newState.favorites.findIndex((i) => (i.event_id === action.payload.event_id)), 1);
-			return newState;
+			const removeIndex = newState.favorites.findIndex((i) => (i.event_id === action.payload.event_id));
+			newState.favorites = newState.favorites.slice(removeIndex + 1);
+			return {
+				...newState,
+			};
 
 		default:
 			return newState;
