@@ -4,9 +4,11 @@ import * as API from '../consts/API';
 
 import { types } from '../consts/ActionTypes';
 
+import consts from '../consts';
+
 const fetchNewEvents = (page) => {
 	return new Promise((resolve, reject) => {
-		const url = API.GET_NEW_EVENTS.replace("p0", page);
+		const url = API.GET_NEW_EVENTS.replace("p0", page * consts.perPage);
 		axios.get(url)
 			.then((response) => {
 				resolve(response);

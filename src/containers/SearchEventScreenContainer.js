@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import {
   clearSearch,
   searchEvent,
+  loadEvent,
 } from '../actions/SearchEventsAction';
 
 import {
@@ -21,6 +22,7 @@ const mapStateToProps = (state) => ({
   events: state.searchEvents.events,
   favorites: state.searchEvents.favorites,
   isSearching: state.searchEvents.isSearching,
+  isLoading: state.searchEvents.isLoading,
   nextPage: state.searchEvents.nextPage,
   isShowNotFound: state.searchEvents.isShowNotFound,
 });
@@ -29,6 +31,7 @@ const mapDispatchToProps = (dispatch) => (
   bindActionCreators({
     clearSearch,
     searchEvent,
+    loadEvent,
     openEvent,
     addFavorite,
     removeFavorite,

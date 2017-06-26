@@ -4,12 +4,14 @@ import * as API from '../consts/API';
 
 import { types } from '../consts/ActionTypes';
 
+import consts from '../consts';
+
 const searchEvents = (page, keywordList) => {
 	return new Promise((resolve, reject) => {
 		const url = API.SEARCH_EVENTS
-			.replace("p0", page)
+			.replace("p0", page * consts.perPage)
 			.replace("p1", keywordList.join(','));
-		
+
 		axios.get(url)
 			.then((response) => {
 				resolve(response);
@@ -27,20 +29,28 @@ export const clearSearch = () => {
 }
 
 export const searchEvent = (page, keywordList) => {
+	return fetchEvents(page, keywordList, types.ACTION_SEARCHING_EVENTS, types.ACTION_SEARCHED_EVENTS);
+}
+
+export const loadEvent = (page, keywordList) => {
+	return fetchEvents(page, keywordList, types.ACTION_SEARCHING_NEXT, types.ACTION_SEARCHED_NEXT);
+}
+
+const fetchEvents = (page, keywordList, proccesingAction, doneAction) => {
 	return (dispatch, getState) => {
-		dispatch({ type: types.ACTION_SEARCHING_EVENTS });
+		dispatch({ type: proccesingAction });
 
 		searchEvents(page, keywordList)
 			.then((response) => {
 				dispatch({
-					type: types.ACTION_SEARCHED_EVENTS,
+					type: doneAction,
 					payload: response.data.events,
 					nextPage: page + 1,
 				})
 			})
 			.catch((error) => {
 				dispatch({
-					type: types.ACTION_SEARCHED_EVENTS,
+					type: doneAction,
 					payload: [],
 				})
 			});

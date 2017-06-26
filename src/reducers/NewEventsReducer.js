@@ -4,7 +4,7 @@ const initialState = {
 	events: [],
 	favorites: [],
 	isLoading: false,
-	nextPage: 1,
+	nextPage: 0,
 }
 
 export default (state = initialState, action = {}) => {

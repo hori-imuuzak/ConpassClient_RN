@@ -4,12 +4,14 @@ const initialState = {
 	events: [],
 	favorites: [],
 	isSearching: false,
-	nextPage: 1,
+	isLoading: false,
+	nextPage: 0,
 	isShowNotFound: false,
 }
 
 export default (state = initialState, action = {}) => {
 	const newState = Object.assign({}, state);
+	let events;
 
 	switch (action.type) {
 		case types.ACTION_CLEAR_SEARCH:
@@ -21,7 +23,7 @@ export default (state = initialState, action = {}) => {
 			return newState;
 
 		case types.ACTION_SEARCHED_EVENTS:
-			const events = action.payload || newState.events;
+			events = action.payload || newState.events;
 			const isShowNotFound = (events.length === 0);
 			let nextPage = action.nextPage || newState.nextPage;
 
@@ -33,6 +35,17 @@ export default (state = initialState, action = {}) => {
 			newState.isSearching = false;
 			newState.nextPage = nextPage;
 			newState.isShowNotFound = isShowNotFound;
+			return newState;
+
+		case types.ACTION_SEARCHING_NEXT:
+			newState.isLoading = true;
+			return newState;
+
+		case types.ACTION_SEARCHED_NEXT:
+			events = action.payload || newState.events;
+			newState.events = [...newState.events, ...events];
+			newState.isLoading = false;
+			newState.nextPage = action.nextPage || newState.nextPage;
 			return newState;
 
 		case types.ACTION_ADD_FAVORITE:
