@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import configStore from './Store';
-import Navigation from './routes/Navigation';
+import Navigation from './containers/NavigationContainer';
 
 export default class App extends Component {
   render() {
