@@ -30,9 +30,9 @@ export default () => {
 
 	persistStore(store, {
 		storage: AsyncStorage,
-		// whitelist: [
-		// 	'favorite',
-		// ]
+		whitelist: [
+			'favorite',
+		]
 	}, () => {
 		console.log('rehydration compolete');
 	})
