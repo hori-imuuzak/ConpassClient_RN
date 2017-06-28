@@ -10,21 +10,15 @@ import { persistStore, autoRehydrate } from 'redux-persist';
 import { createLogger } from 'redux-logger';
 import { AsyncStorage } from 'react-native';
 
-import NewEventsReducer from './reducers/NewEventsReducer';
-import SearchEventsReducer from './reducers/SearchEventsReducer';
-import EventDetailReducer from './reducers/EventDetailReducer';
-import FavoritesReducer from './reducers/FavoritesReducer';
+import reducers from './reducers';
 
 const logger = createLogger();
 
 export default () => {
 	const store = createStore(
-		combineReducers({
-			newEvents: NewEventsReducer,
-			searchEvents: SearchEventsReducer,
-			eventDetail: EventDetailReducer,
-			favorite: FavoritesReducer,
-		}),
+		combineReducers(
+			reducers
+		),
 		undefined,
 		compose(
 			applyMiddleware(
