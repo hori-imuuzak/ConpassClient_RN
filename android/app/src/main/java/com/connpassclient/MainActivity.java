@@ -2,7 +2,8 @@ package com.connpassclient;
 
 import com.facebook.react.ReactActivity;
 
-public class MainActivity extends ReactActivity {
+public class MainActivity extends ReactActivity implements OnImagePickerPermissionsCallback {
+    private PermissionListener listener;
 
     /**
      * Returns the name of the main component registered from JavaScript.
@@ -12,4 +13,18 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "ConnpassClient";
     }
+
+    @Override
+    public void setPermissionListener(PermissionListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (listener != null) {
+        listener.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
 }

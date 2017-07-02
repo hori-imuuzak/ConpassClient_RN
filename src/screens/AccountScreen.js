@@ -9,6 +9,8 @@ import {
 
 import { StyleSheet } from 'react-native';
 
+import ImagePicker from 'react-native-image-picker';
+
 import Title from '../components/Title';
 
 import ProfileIcon from '../components/ProfileIcon';
@@ -70,6 +72,10 @@ const styles = {
 	},
 };
 
+const pickerOptions = {
+	title: 'アイコンを選択',
+};
+
 export default class EventScreen extends Component {
 	constructor(props) {
 		super(props);
@@ -77,9 +83,11 @@ export default class EventScreen extends Component {
 		this.state = {
 			nickname: '',
 			inputNickname: '',
+			userIcon: '',
 		};
 
 		this.inputedNickname = this.inputedNickname.bind(this);
+		this.showImagePicker = this.showImagePicker.bind(this);
 		this.handleInputNickname = this.handleInputNickname.bind(this);
 		this.renderRelationshipEvent = this.renderRelationshipEvent.bind(this);
 		this.renderHostEventButton = this.renderHostEventButton.bind(this);
@@ -99,6 +107,32 @@ export default class EventScreen extends Component {
 	handleInputNickname(inputText) {
 		this.setState({
 			inputNickname: inputText,
+		});
+	}
+
+	showImagePicker() {
+		this.setState({
+			isImageLoading: true,
+		});
+
+		ImagePicker.showImagePicker(pickerOptions, (response) => {
+			if (response.didCancel) {
+				this.setState({
+					isImageLoading: false,
+				});
+
+			} else if (response.error) {
+				this.setState({
+					isImageLoading: false,
+				});
+
+			} else {
+				const imageSource = { uri: response.uri };
+				this.setState({
+					userIcon: imageSource,
+					isImageLoading: false,
+				});
+			}
 		});
 	}
 
@@ -145,7 +179,9 @@ export default class EventScreen extends Component {
 
 	render() {
 		const {
-			nickname
+			nickname,
+			userIcon,
+			isImageLoading,
 		} = this.state;
 
 		return (
@@ -175,7 +211,9 @@ export default class EventScreen extends Component {
 					style={styles.imageContainer}
 				>
 					<ProfileIcon
-						url={"https://s-media-cache-ak0.pinimg.com/736x/98/2d/c3/982dc38d3028d1ebf30447506e0dd525.jpg"}
+						source={userIcon}
+						onPress={this.showImagePicker}
+						isLoading={isImageLoading}
 					/>
 				</View>
 				{nickname.length > 0 ? this.renderRelationshipEvent() : null}

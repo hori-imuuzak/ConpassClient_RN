@@ -1,9 +1,19 @@
 import { StyleSheet } from 'react-native';
 
+const iconSize = 128;
+
 export default StyleSheet.create({
+  container : {
+  },
   circleIcon: {
-    width: 128,
-    height: 128,
-    borderRadius: 64,
-  }
+    width: iconSize,
+    height: iconSize,
+    borderRadius: iconSize / 2,
+  },
+  indicator: {
+    height: iconSize,
+    position: 'absolute',
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
 });

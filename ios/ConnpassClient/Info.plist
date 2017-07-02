@@ -52,5 +52,11 @@
       </dict>
     </dict>
   </dict>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>ユーザーアイコンの設定</string>
+  <key>NSCameraUsageDescription</key>
+  <string>ユーザーアイコンの設定</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>ユーザーアイコンの設定</string>
 </dict>
 </plist>
