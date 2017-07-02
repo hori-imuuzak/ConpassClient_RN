@@ -1,6 +1,8 @@
 package com.connpassclient;
 
 import com.facebook.react.ReactActivity;
+import com.imagepicker.permissions.OnImagePickerPermissionsCallback;
+import com.facebook.react.modules.core.PermissionListener;
 
 public class MainActivity extends ReactActivity implements OnImagePickerPermissionsCallback {
     private PermissionListener listener;
